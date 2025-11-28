@@ -1,0 +1,106 @@
+/* General */
+.root {
+    -fx-background-color: #f1f2f6;
+}
+
+/* VBox principal de NuevoProductoController */
+.vbox {
+    -fx-padding: 20;
+    -fx-spacing: 10;
+    -fx-alignment: top-center;
+}
+
+/* Encabezados y títulos */
+.label {
+    -fx-font-size: 14px;
+}
+.label.bold, .text-bold {
+    -fx-font-weight: bold;
+}
+
+/* Botones */
+.button {
+    -fx-font-weight: bold;
+    -fx-text-fill: white;
+    -fx-background-color: #57606f;
+    -fx-background-radius: 5;
+    -fx-border-radius: 5;
+}
+
+.button#btnNuevoProducto {
+    -fx-background-color: #1ecbff;
+}
+
+.button#btnModificarProducto {
+    -fx-background-color: #2ed573;
+
+}
+
+.button#btnEliminarProducto {
+    -fx-background-color: #ff6d1e;
+}
+
+.button#btnGuardar {
+    -fx-text-fill: black;
+    -fx-background-color: #dfe4ea;
+}
+
+.button#btnHacerVenta {
+    -fx-background-color: #1e90ff;
+}
+
+.button#btnAgregar {
+    -fx-background-color: #1e90ff;
+}
+
+.button#btnConfirmarVenta {
+    -fx-background-color: #2ed573;
+}
+
+.button#btnCancelar {
+    -fx-background-color: #ff4757;
+}
+
+.button#btnEliminarItem {
+    -fx-background-color: #ffa502;
+}
+
+/* Panel lateral */
+.vbox#leftPanel {
+    -fx-background-color: #2f3542;
+    -fx-spacing: 10;
+    -fx-alignment: top-center;
+    -fx-pref-width: 160;
+    -fx-padding: 15;
+}
+
+/* TextFields y ComboBoxes */
+.text-field, .combo-box {
+    -fx-pref-width: 150;
+}
+
+/* Tabla */
+.table-view {
+    -fx-pref-height: 350;
+}
+.table-column {
+    -fx-pref-width: 100;
+}
+
+/* Labels de totales */
+.label#lblTotal {
+    -fx-font-size: 16px;
+    -fx-font-weight: bold;
+    -fx-text-fill: #2ed573;
+}
+
+/* HBox y VBox con spacing y padding */
+.hbox, .vbox {
+    -fx-spacing: 10;
+    /* -fx-padding: 10; */
+}
+
+/* HBox específico de agregar stock */
+.hbox#hboxAgregarStock {
+    -fx-alignment: center-left;
+}

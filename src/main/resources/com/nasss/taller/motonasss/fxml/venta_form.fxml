@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.text.*?>
+
+<VBox xmlns:fx="http://javafx.com/fxml"
+      fx:controller="com.nasss.taller.motonasss.controllers.VentaFormController"
+      spacing="12" alignment="TOP_CENTER" prefWidth="650" prefHeight="600"
+      stylesheets="@styles/styles.css">
+    <padding>
+        <Insets top="20" right="20" bottom="20" left="20"/>
+    </padding>
+
+    <!-- Encabezado de la factura -->
+    <VBox alignment="CENTER">
+        <Text text="MotoNASSS"/>
+        <HBox spacing="20" alignment="CENTER">
+            <Label text="ID Venta:"/>
+            <Label fx:id="lblIdVenta" text="AUTO"/>
+            <Label text="Fecha:"/>
+            <Label fx:id="lblFecha" text="--/--/---- --:--"/>
+        </HBox>
+    </VBox>
+
+    <!-- Sección para agregar productos -->
+    <HBox spacing="10" alignment="CENTER">
+        <ComboBox fx:id="cbProducto" prefWidth="200" promptText="Seleccionar producto"/>
+        <TextField fx:id="txtCantidad" promptText="Cantidad" prefWidth="80"/>
+        <Button fx:id="btnAgregar" text="Agregar" onAction="#agregarItem"/>
+    </HBox>
+
+    <!-- Tabla de ítems -->
+    <TableView fx:id="tablaItems" prefHeight="350">
+        <columns>
+            <TableColumn fx:id="colProducto" text="Producto" prefWidth="200"/>
+            <TableColumn fx:id="colCantidad" text="Cantidad" prefWidth="100"/>
+            <TableColumn fx:id="colPrecio" text="Precio Unitario" prefWidth="120"/>
+            <TableColumn fx:id="colSubtotal" text="Subtotal" prefWidth="120"/>
+        </columns>
+    </TableView>
+
+    <!-- Total y botones -->
+    <HBox spacing="20" alignment="CENTER_RIGHT">
+        <Button fx:id="btnEliminarItem" text="Eliminar ítem" onAction="#eliminarItem"/>
+        <Label text="Total:"/>
+        <Label fx:id="lblTotal" text="0.00"/>
+    </HBox>
+
+    <HBox spacing="10" alignment="CENTER">
+        <Button fx:id="btnConfirmarVenta" text="Confirmar Venta" onAction="#confirmarVenta"/>
+        <Button fx:id="btnCancelar" text="Cancelar" onAction="#cerrarFormulario"/>
+    </HBox>
+</VBox>

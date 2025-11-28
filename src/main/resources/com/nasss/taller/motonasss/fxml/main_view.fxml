@@ -1,0 +1,85 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<BorderPane xmlns:fx="http://javafx.com/fxml" fx:controller="com.nasss.taller.motonasss.controllers.MainController"
+            stylesheets="@styles/styles.css">
+    <!-- Panel lateral izquierdo -->
+    <left>
+        <VBox spacing="10" style="-fx-background-color: #2f3542;" alignment="TOP_CENTER" prefWidth="160">
+            <padding>
+                <Insets top="15" right="15" bottom="15" left="15"/>
+            </padding>
+
+            <Button text="Productos" fx:id="btnProductos" prefWidth="120" onAction="#mostrarProductos"/>
+            <Button text="Ventas" fx:id="btnVentas" prefWidth="120" onAction="#mostrarVentas"/>
+        </VBox>
+    </left>
+
+    <!-- Área principal -->
+    <center>
+        <StackPane fx:id="contenidoPrincipal">
+            <padding>
+                <Insets top="15" right="15" bottom="15" left="15"/>
+            </padding>
+
+            <!-- Panel de productos -->
+            <VBox fx:id="panelProductos" spacing="10">
+                <HBox spacing="10" alignment="CENTER_LEFT">
+                    <Label text="Buscar:"/>
+                    <TextField fx:id="txtBuscarProductos" promptText="Escribe para buscar..."/>
+                </HBox>
+
+                <HBox spacing="10">
+                    <Button text="Nuevo" fx:id="btnNuevoProducto" onAction="#mostrarFormularioNuevoProducto"/>
+                    <Button text="Modificar" fx:id="btnModificarProducto" onAction="#modificarProducto"/>
+                    <Button text="Eliminar" fx:id="btnEliminarProducto" onAction="#eliminarProducto"/>
+                </HBox>
+
+                <TableView fx:id="tablaProductos">
+                    <columns>
+                        <TableColumn fx:id="colId" text="ID" prefWidth="80"/>
+                        <TableColumn fx:id="colNombre" text="Nombre" prefWidth="180"/>
+                        <TableColumn fx:id="colPrecio" text="Precio" prefWidth="100"/>
+                        <TableColumn fx:id="colStock" text="Stock" prefWidth="80"/>
+                        <TableColumn fx:id="colPrecioVenta" text="Precio de venta" prefWidth="100"/>
+                    </columns>
+                </TableView>
+            </VBox>
+
+            <!-- Panel de ventas -->
+            <VBox fx:id="panelVentas" spacing="10" visible="false" managed="false">
+                <HBox spacing="10" alignment="CENTER_LEFT">
+                    <Label text="Buscar:"/>
+                    <TextField fx:id="txtBuscarVenta" promptText="Escribe para buscar..."/>
+                </HBox>
+
+                <HBox spacing="10">
+                    <Button text="Hacer venta" fx:id="btnHacerVenta" onAction="#hacerVenta"/>
+                </HBox>
+
+                <!-- Tabla resumen de ventas -->
+                <TableView fx:id="tablaVentas">
+                    <columns>
+                        <TableColumn fx:id="colIdVenta" text="ID Venta" prefWidth="100"/>
+                        <TableColumn fx:id="colFechaVenta" text="Fecha" prefWidth="140"/>
+                        <TableColumn fx:id="colTotalVenta" text="Total" prefWidth="100"/>
+                    </columns>
+                </TableView>
+
+                <Label text="Detalle de la venta:"/>
+                <!-- Tabla de detalle de items de la venta seleccionada -->
+                <TableView fx:id="tablaDetalleVenta">
+                    <columns>
+                        <TableColumn fx:id="colDetProducto" text="Producto" prefWidth="180"/>
+                        <TableColumn fx:id="colDetCantidad" text="Cantidad" prefWidth="100"/>
+                        <TableColumn fx:id="colDetPrecio" text="Precio" prefWidth="100"/>
+                        <TableColumn fx:id="colDetSubtotal" text="Subtotal" prefWidth="100"/>
+                    </columns>
+                </TableView>
+            </VBox>
+        </StackPane>
+    </center>
+</BorderPane>
