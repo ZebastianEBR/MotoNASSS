@@ -16,32 +16,32 @@
     <Label text="Crear Nuevo Producto"/>
 
     <HBox spacing="10" alignment="CENTER_LEFT">
-        <Label text="Tipo:" prefWidth="80"/>
-        <ComboBox fx:id="comboTipo" prefWidth="150"/>
+        <Label text="Tipo:" prefWidth="150"/>
+        <ComboBox fx:id="comboTipo" prefWidth="200"/>
     </HBox>
 
     <HBox spacing="10" alignment="CENTER_LEFT">
-        <Label text="Nombre:" prefWidth="80"/>
+        <Label text="Nombre:" prefWidth="150"/>
         <TextField fx:id="txtNombre" prefWidth="200"/>
     </HBox>
 
     <HBox spacing="10" alignment="CENTER_LEFT">
-        <Label text="Precio:" prefWidth="80"/>
-        <TextField fx:id="txtPrecio" prefWidth="150"/>
+        <Label text="Precio:" prefWidth="150"/>
+        <TextField fx:id="txtPrecio" prefWidth="200"/>
     </HBox>
 
     <HBox fx:id="hboxPrecioVenta" spacing="10" alignment="CENTER_LEFT" visible="false" managed="false">
-        <Label text="Precio de venta:" prefWidth="80"/>
-        <TextField fx:id="txtPrecioVenta" prefWidth="150"/>
+        <Label text="Precio de venta:" prefWidth="150"/>
+        <TextField fx:id="txtPrecioVenta" prefWidth="200"/>
     </HBox>
 
     <HBox spacing="10" alignment="CENTER_LEFT">
-        <Label text="Stock:" prefWidth="80"/>
-        <TextField fx:id="txtStock" prefWidth="150"/>
+        <Label text="Stock:" prefWidth="150"/>
+        <TextField fx:id="txtStock" prefWidth="200"/>
     </HBox>
     <HBox fx:id="hboxAgregarStock" spacing="10" alignment="CENTER_LEFT" visible="false" managed="false">
-        <Label text="Agregar stock:" prefWidth="80"/>
-        <TextField fx:id="txtAgregarStock" prefWidth="150"/>
+        <Label text="Agregar stock:" prefWidth="150"/>
+        <TextField fx:id="txtAgregarStock" prefWidth="200"/>
     </HBox>
     <Button text="Guardar" fx:id="btnGuardar" onAction="#guardarProducto"/>
 

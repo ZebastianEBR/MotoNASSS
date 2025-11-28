@@ -3,11 +3,7 @@ package com.nasss.taller.motonasss.services;
 
 import com.nasss.taller.motonasss.exceptions.MissingAnOperation;
 import com.nasss.taller.motonasss.model.*;
-import com.nasss.taller.motonasss.strategy.HelmetStrategy;
-import com.nasss.taller.motonasss.strategy.LightStrategy;
-import com.nasss.taller.motonasss.strategy.OilStrategy;
-
-import java.util.List;
+import com.nasss.taller.motonasss.strategy.*;
 
 /**
  * Clase que representa el calculo del precio de venta para los productos
@@ -52,14 +48,32 @@ public class ProductPriceService {
             throw new IllegalArgumentException("No se encuentra el producto proporcionado");
         }
 
-        if (product instanceof Helmet) {
-            setPpCalculator(new HelmetStrategy());
+        if (product instanceof ChainKit) {
+            setPpCalculator(new ChainKitStrategy());
         }
-        else if (product instanceof Light) {
-            setPpCalculator(new LightStrategy());
+        else if (product instanceof Battery) {
+            setPpCalculator(new BatteryStrategy());
+        }
+        else if (product instanceof BreakPads) {
+            setPpCalculator(new BreakPadsStrategy());
+        }
+        else if (product instanceof Cable) {
+            setPpCalculator(new CableStrategy());
+        }
+        else if (product instanceof Oil) {
+            setPpCalculator(new OilStrategy());
+        }
+        else if (product instanceof TurnSignal) {
+            setPpCalculator(new TurnSignalStrategy());
+        }
+        else if (product instanceof Chain) {
+            setPpCalculator(new ChainStrategy());
+        }
+        else if (product instanceof Bearing) {
+            setPpCalculator(new BearingStrategy());
         }
         else {
-            setPpCalculator(new OilStrategy());
+            setPpCalculator(new BreakShoesStrategy());
         }
     }
 

@@ -19,9 +19,9 @@ public class MainPruebas {
         SaleTotalService ss = SaleTotalService.getInstance();
 
         // crear los productos
-        Product h1 = ProductFactory.createProduct(ProductType.CASCO,"Casco Shaft 501", 50000, 10);
-        Product o1 = ProductFactory.createProduct(ProductType.ACEITE,"Aceite Honda", 20000, 10);
-        Product l1 = ProductFactory.createProduct(ProductType.LUZ,"Luz Led qwe", 1000000, 1);
+        Product h1 = ProductFactory.createProduct(ProductType.KITARRASTRE,"Casco Shaft 501", 50000, 10);
+        Product o1 = ProductFactory.createProduct(ProductType.BANDAS,"Oil Honda", 20000, 10);
+        Product l1 = ProductFactory.createProduct(ProductType.BATERIA,"Luz Led qwe", 1000000, 1);
 
         // registrar los productos, y atomaticamente calcula el precio de venta
         pcs.registerProduct(h1);

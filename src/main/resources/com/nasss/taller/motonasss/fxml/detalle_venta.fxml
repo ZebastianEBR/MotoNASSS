@@ -26,8 +26,8 @@
                 <TableView fx:id="tablaVentas" prefWidth="400">
                     <columns>
                         <TableColumn fx:id="colIdVenta" text="ID" prefWidth="100"/>
-                        <TableColumn fx:id="colFechaVenta" text="Fecha" prefWidth="150"/>
-                        <TableColumn fx:id="colTotalVenta" text="Total" prefWidth="100"/>
+                        <TableColumn fx:id="colFechaVenta" text="Fecha" prefWidth="200"/>
+                        <TableColumn fx:id="colTotalVenta" text="Total" prefWidth="150"/>
                     </columns>
                 </TableView>
             </VBox>
@@ -37,10 +37,10 @@
                 <Label text="Detalle de venta"/>
                 <TableView fx:id="tablaDetalleVenta">
                     <columns>
-                        <TableColumn fx:id="colDetProducto" text="Producto" prefWidth="180"/>
+                        <TableColumn fx:id="colDetProducto" text="Producto" prefWidth="200"/>
                         <TableColumn fx:id="colDetCantidad" text="Cantidad" prefWidth="80"/>
-                        <TableColumn fx:id="colDetPrecio" text="Precio unitario" prefWidth="100"/>
-                        <TableColumn fx:id="colDetSubtotal" text="Subtotal" prefWidth="100"/>
+                        <TableColumn fx:id="colDetPrecio" text="Precio unitario" prefWidth="150"/>
+                        <TableColumn fx:id="colDetSubtotal" text="Subtotal" prefWidth="150"/>
                     </columns>
                 </TableView>
             </VBox>

@@ -128,9 +128,15 @@ public class NuevoProductoController {
     }
 
     private ProductType obtenerTipoProducto(Product p) {
-        if (p instanceof Helmet) return ProductType.CASCO;
-        if (p instanceof Light) return ProductType.LUZ;
+        if (p instanceof ChainKit) return ProductType.KITARRASTRE;
+        if (p instanceof Battery) return ProductType.BATERIA;
+        if (p instanceof Bearing) return ProductType.BALINERA;
+        if (p instanceof BrakeShoes) return ProductType.BANDAS;
+        if (p instanceof BreakPads) return ProductType.PASTILLAS;
+        if (p instanceof Cable) return ProductType.GUAYA;
+        if (p instanceof Chain) return ProductType.CADENA;
         if (p instanceof Oil) return ProductType.ACEITE;
+        if (p instanceof TurnSignal) return ProductType.DIRECCIONAL;
         throw new IllegalArgumentException("Tipo de producto desconocido");
     }
 }

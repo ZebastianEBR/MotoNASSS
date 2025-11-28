@@ -40,11 +40,11 @@
 
                 <TableView fx:id="tablaProductos">
                     <columns>
-                        <TableColumn fx:id="colId" text="ID" prefWidth="80"/>
-                        <TableColumn fx:id="colNombre" text="Nombre" prefWidth="180"/>
-                        <TableColumn fx:id="colPrecio" text="Precio" prefWidth="100"/>
-                        <TableColumn fx:id="colStock" text="Stock" prefWidth="80"/>
-                        <TableColumn fx:id="colPrecioVenta" text="Precio de venta" prefWidth="100"/>
+                        <TableColumn fx:id="colId" text="ID" prefWidth="100"/>
+                        <TableColumn fx:id="colNombre" text="Nombre" prefWidth="300"/>
+                        <TableColumn fx:id="colPrecio" text="Precio" prefWidth="120"/>
+                        <TableColumn fx:id="colStock" text="Stock" prefWidth="100"/>
+                        <TableColumn fx:id="colPrecioVenta" text="Precio de venta" prefWidth="150"/>
                     </columns>
                 </TableView>
             </VBox>

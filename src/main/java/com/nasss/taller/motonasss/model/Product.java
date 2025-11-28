@@ -55,7 +55,9 @@ public abstract class Product {
     }
 
     // solo se usa una vez calculado el precio de venta
-    public abstract double calculateProfit(double purchasePrice, double salePrice);
+    public double calculateProfit(double purchasePrice, double salePrice) {
+        return salePrice - purchasePrice;
+    }
 
 
     @Override
