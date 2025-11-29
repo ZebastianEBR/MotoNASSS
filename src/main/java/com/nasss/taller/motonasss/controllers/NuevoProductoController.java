@@ -10,6 +10,8 @@ import javafx.scene.control.*;
 import javafx.scene.layout.HBox;
 import javafx.stage.Stage;
 
+import java.sql.SQLOutput;
+
 public class NuevoProductoController {
     private final ProductCrudService pcs = ProductCrudService.getInstance();
     private final ProductPriceService pps = ProductPriceService.getInstance();
@@ -37,6 +39,7 @@ public class NuevoProductoController {
 
     @FXML
     public void initialize() {
+        System.out.println("\n Iniciando producto controller");
         comboTipo.getItems().setAll(ProductType.values());
         hboxAgregarStock.setVisible(false);
         hboxAgregarStock.setManaged(false);
@@ -47,6 +50,7 @@ public class NuevoProductoController {
 
     @FXML
     private void guardarProducto() {
+        System.out.println("\n guardando producto...");
         try {
             String nombre = txtNombre.getText().trim();
             ProductType tipo = comboTipo.getValue();
@@ -54,16 +58,33 @@ public class NuevoProductoController {
             int stock = Integer.parseInt(txtStock.getText());
             int agregarStock = txtAgregarStock.getText().isEmpty() ? 0 : Integer.parseInt(txtAgregarStock.getText());
 
+            // 🔹 Validar campos obligatorios
             if (nombre.isEmpty() || tipo == null) {
                 mostrarAlerta("Complete todos los campos obligatorios.");
                 return;
             }
 
+            // 🔹 Validar coincidencia de tipo y nombre
             if (!tipo.matchesName(nombre)) {
                 mostrarAlerta("El nombre del producto no coincide con el tipo seleccionado.");
                 return;
             }
 
+            // 🔹 Validar valores negativos
+            if (precio < 0) {
+                mostrarAlerta("El precio no puede ser negativo.");
+                return;
+            }
+            if (stock < 0) {
+                mostrarAlerta("El stock no puede ser negativo.");
+                return;
+            }
+            if (agregarStock < 0) {
+                mostrarAlerta("No puedes agregar una cantidad negativa de stock.");
+                return;
+            }
+
+            // 🔹 Crear o actualizar producto
             if (productoActual == null) {
                 Product producto = ProductFactory.createProduct(tipo, nombre, precio, stock);
                 pcs.registerProduct(producto);
@@ -75,29 +96,29 @@ public class NuevoProductoController {
                 productoActual.setStock(stock + agregarStock);
 
                 if (hboxPrecioVenta.isVisible() && !txtPrecioVenta.getText().isEmpty()) {
-                    // Usuario editó el precio de venta manualmente
                     double precioVenta = Double.parseDouble(txtPrecioVenta.getText());
+                    if (precioVenta < 0) {
+                        mostrarAlerta("El precio de venta no puede ser negativo.");
+                        return;
+                    }
                     productoActual.setSalePrice(precioVenta);
                 } else {
-                    // Recalcula el precio de venta automáticamente según el nuevo precio de compra
                     pps.calculatePrice(productoActual);
-                    txtPrecioVenta.setText(String.valueOf(productoActual.getSalePrice())); // <- actualizar el TextField
+                    txtPrecioVenta.setText(String.valueOf(productoActual.getSalePrice()));
                 }
 
                 pcs.updateProduct(productoActual);
 
-                // Refrescar la tabla
                 if (tablaProductos != null) {
                     tablaProductos.refresh();
                 }
             }
 
-
             Stage stage = (Stage) txtNombre.getScene().getWindow();
             stage.close();
 
         } catch (NumberFormatException e) {
-            mostrarAlerta("Precio, Stock y Precio de venta deben ser números.");
+            mostrarAlerta("Precio y Stock deben ser números.");
         } catch (IllegalArgumentException e) {
             mostrarAlerta(e.getMessage());
         }

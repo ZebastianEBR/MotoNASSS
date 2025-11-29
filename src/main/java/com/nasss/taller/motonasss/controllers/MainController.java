@@ -21,6 +21,9 @@ import java.time.format.DateTimeFormatter;
 
 public class MainController {
 
+    private Stage ventanaProducto;
+    private Stage ventanaVenta;
+
     @FXML private VBox panelProductos;
     @FXML private VBox panelVentas;
 
@@ -70,9 +73,9 @@ public class MainController {
                     if (stock == 0) {
                         setStyle("-fx-background-color: #ff4d4d; -fx-text-fill: white; -fx-alignment: CENTER;");
                     } else if (stock <= 2) {
-                        setStyle("-fx-background-color: #ffd966; -fx-text-fill: black; -fx-alignment: CENTER;");
+                        setStyle("-fx-background-color: #ffa23f; -fx-text-fill: black; -fx-alignment: CENTER;");
                     } else if (stock <= 3) {
-                        setStyle("-fx-background-color: #ffb84d; -fx-text-fill: black; -fx-alignment: CENTER;");
+                        setStyle("-fx-background-color: #ffe57e; -fx-text-fill: black; -fx-alignment: CENTER;");
                     } else {
                         setStyle("");
                     }
@@ -81,7 +84,7 @@ public class MainController {
         });
         colPrecioVenta.setCellValueFactory(data -> new SimpleDoubleProperty(data.getValue().getSalePrice()).asObject());
         productosTabla.addAll(motodb.getProducts());
-
+        System.out.println(motodb);
         // --- Tabla ventas ---
         tablaVentas.setItems(ventasTabla);
         actualizarTablaVentas();
@@ -146,22 +149,36 @@ public class MainController {
     // --- Productos CRUD ---
     @FXML
     public void mostrarFormularioNuevoProducto(javafx.event.ActionEvent event) {
+        if (ventanaProducto != null && ventanaProducto.isShowing()) {
+            ventanaProducto.toFront(); // la trae al frente si ya está abierta
+            return;
+        }
+
         ViewController.ViewLoaderResult<NuevoProductoController> result =
                 ViewController.loadView("/com/nasss/taller/motonasss/fxml/product_crud.fxml");
+
         if (result != null) {
-            Stage stage = new Stage();
-            stage.setScene(new Scene(result.getRoot()));
-            stage.setTitle("Nuevo Producto");
+            ventanaProducto = new Stage();
+            ventanaProducto.setScene(new Scene(result.getRoot()));
+            ventanaProducto.setTitle("Nuevo Producto");
+            ventanaProducto.setResizable(false);
 
             result.getController().setListaProductos(productosTabla);
-            stage.initOwner(tablaProductos.getScene().getWindow());
-            stage.showAndWait();
+
+            ventanaProducto.initOwner(tablaProductos.getScene().getWindow());
+            ventanaProducto.setOnCloseRequest(e -> ventanaProducto = null); // 🔹 se limpia al cerrar
+            ventanaProducto.show();
         }
     }
 
     @FXML
     private void modificarProducto() {
+        if (ventanaProducto != null && ventanaProducto.isShowing()) {
+            ventanaProducto.toFront(); // la trae al frente si ya está abierta
+            return;
+        }
         Product seleccionado = tablaProductos.getSelectionModel().getSelectedItem();
+
         if (seleccionado == null) {
             Alert alert = new Alert(Alert.AlertType.WARNING, "Debes seleccionar un producto para modificar.");
             alert.showAndWait();
@@ -170,25 +187,30 @@ public class MainController {
 
         ViewController.ViewLoaderResult<NuevoProductoController> result =
                 ViewController.loadView("/com/nasss/taller/motonasss/fxml/product_crud.fxml");
+
         if (result != null) {
-            Stage stage = new Stage();
-            stage.setScene(new Scene(result.getRoot()));
-            stage.setWidth(600);
-            stage.setHeight(400);
-            stage.setTitle("Modificar Producto");
+            ventanaProducto = new Stage();
+            ventanaProducto.setScene(new Scene(result.getRoot()));
+            ventanaProducto.setWidth(600);
+            ventanaProducto.setHeight(400);
+            ventanaProducto.setTitle("Modificar Producto");
 
             NuevoProductoController controller = result.getController();
             controller.setListaProductos(productosTabla);
             controller.cargarProducto(seleccionado);
 
-            stage.initOwner(tablaProductos.getScene().getWindow());
-            stage.showAndWait();
+            ventanaProducto.initOwner(tablaProductos.getScene().getWindow());
+            ventanaProducto.setOnCloseRequest(e -> ventanaProducto = null);
+            ventanaProducto.showAndWait();
+
             tablaProductos.refresh();
         }
     }
 
+
     @FXML
     private void eliminarProducto() {
+
         Product seleccionado = tablaProductos.getSelectionModel().getSelectedItem();
         if (seleccionado == null) {
             Alert alert = new Alert(Alert.AlertType.WARNING, "Debes seleccionar un producto para eliminarlo.");
@@ -211,22 +233,30 @@ public class MainController {
 
     @FXML
     private void hacerVenta() {
+        if (ventanaVenta != null && ventanaVenta.isShowing()) {
+            ventanaVenta.toFront();
+            return;
+        }
+
         try {
             FXMLLoader loader = new FXMLLoader(getClass().getResource("/com/nasss/taller/motonasss/fxml/venta_form.fxml"));
-            Stage stage = new Stage();
-            stage.setScene(new Scene(loader.load()));
-            stage.setTitle("Nueva Venta - MotoNASSS");
+            ventanaVenta = new Stage();
+            ventanaVenta.setScene(new Scene(loader.load()));
+            ventanaVenta.setTitle("Nueva Venta - MotoNASSS");
 
-            // Configurar controller
             VentaFormController controller = loader.getController();
             controller.setProductosDisponibles(Motoshop.getInstance().getProducts());
             controller.setMainController(this);
 
-            stage.show();
+            ventanaVenta.setOnCloseRequest(e -> ventanaVenta = null);
+            ventanaVenta.show();
+
         } catch (IOException e) {
             e.printStackTrace();
+            new Alert(Alert.AlertType.ERROR, "No se pudo abrir la ventana de venta.").showAndWait();
         }
     }
+
 
     public void actualizarTablaVentas() {
         ventasTabla.setAll(Motoshop.getInstance().getSales());

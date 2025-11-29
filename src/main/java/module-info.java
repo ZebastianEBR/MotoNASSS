@@ -2,6 +2,7 @@ module com.nasss.taller.motonasss {
     requires javafx.controls;
     requires javafx.fxml;
     requires java.desktop;
+    requires java.sql;
 
     opens com.nasss.taller.motonasss.app to javafx.fxml;
     opens com.nasss.taller.motonasss.controllers to javafx.fxml;

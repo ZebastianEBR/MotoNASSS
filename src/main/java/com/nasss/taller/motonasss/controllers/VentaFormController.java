@@ -70,7 +70,8 @@ public class VentaFormController {
 
         Product producto = productosDisponibles.stream()
                 .filter(p -> p.getName().equals(nombre))
-                .findFirst().orElse(null);
+                .findFirst()
+                .orElse(null);
 
         if (producto == null) {
             showAlert("Error", "El producto seleccionado no existe.", Alert.AlertType.ERROR);
@@ -86,13 +87,39 @@ public class VentaFormController {
             return;
         }
 
-        if (cantidad > producto.getStock()) {
-            showAlert("Stock insuficiente", "Solo hay " + producto.getStock() + " unidades disponibles.", Alert.AlertType.WARNING);
+        // 🔹 Verificar si ya hay un item del mismo producto en la venta
+        SaleItem existente = listaItems.stream()
+                .filter(i -> i.getProduct().getCode() == producto.getCode())
+                .findFirst()
+                .orElse(null);
+
+        int cantidadActual = (existente != null) ? existente.getQuantity() : 0;
+        int cantidadTotal = cantidadActual + cantidad;
+
+        if (cantidadTotal > producto.getStock()) {
+            int disponibles = producto.getStock() - cantidadActual;
+
+            String mensaje;
+            if (disponibles <= 0) {
+                mensaje = "Ya no quedan unidades disponibles de este producto.";
+            } else {
+                mensaje = "Solo puedes agregar " + disponibles + " unidad"
+                        + (disponibles > 1 ? "es" : "") + " más.";
+            }
+
+            showAlert("Stock insuficiente", mensaje, Alert.AlertType.WARNING);
             return;
         }
 
-        SaleItem item = new SaleItem(producto, cantidad, producto.getSalePrice());
-        listaItems.add(item);
+        // 🔹 Si ya existe, solo actualizamos la cantidad y el subtotal
+        if (existente != null) {
+            existente.setQuantity(cantidadTotal);
+            tablaItems.refresh();
+        } else {
+            SaleItem nuevoItem = new SaleItem(producto, cantidad, producto.getSalePrice());
+            listaItems.add(nuevoItem);
+        }
+
         actualizarTotal();
         txtCantidad.clear();
     }
